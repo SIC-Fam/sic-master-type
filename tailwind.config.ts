@@ -16,6 +16,15 @@ const config: Config = {
       colors: {
         primary: "#F57930",
       },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "100%" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.3s ease-in",
+      },
     },
   },
   plugins: [],

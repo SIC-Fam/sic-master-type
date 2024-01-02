@@ -18,13 +18,34 @@ export const isAllowedCode = (code: string): boolean => {
   );
 };
 
-const Content = () => {
-  const randomText = useMemo(() => faker.word.words(70).split(""), []);
+interface ContentProps {
+  numberOfWordTest: number;
+  onStart: () => void;
+  onFinish: (wordCount: number, correctWord: number) => void;
+  isFinish: boolean;
+}
+
+const Content = ({
+  numberOfWordTest,
+  onStart,
+  onFinish,
+  isFinish,
+}: ContentProps) => {
+  const randomText = useMemo(
+    () => faker.word.words(numberOfWordTest).split(""),
+    [numberOfWordTest]
+  );
   const [word, setWord] = useState("");
+  const [typed, setTyped] = useState(false);
 
   const handleKeyDown = useCallback(
     ({ key, code }: KeyboardEvent) => {
-      if (!isAllowedCode(code)) return;
+      if (isFinish || !isAllowedCode(code)) return;
+
+      if (!typed) {
+        onStart();
+        setTyped(true);
+      }
 
       if (key === "Backspace") {
         if (word.length > 0) {
@@ -34,7 +55,7 @@ const Content = () => {
       }
       setWord((prev) => prev + key);
     },
-    [word.length]
+    [typed, word.length, isFinish]
   );
 
   useEffect(() => {
@@ -42,45 +63,64 @@ const Content = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
-  return (
-    <div className="relative w-full max-w-[700px]">
-      <div className="text-gray-500 text-justify">
-        {randomText.length &&
-          randomText.map((text, index) => {
-            if (!!word[index] && text === word[index]) {
-              return (
-                <span
-                  className="text-lg tracking-wide text-primary"
-                  key={index}
-                >
-                  {text}
-                </span>
-              );
-            } else if (!!word[index] && text !== word[index]) {
-              return (
-                <span className="text-lg tracking-wide bg-red-500" key={index}>
-                  {text}
-                </span>
-              );
-            } else if (
-              !!word[index] &&
-              text !== word[index] &&
-              word[index] === " "
-            ) {
-              return (
-                <span className="text-lg tracking-wide bg-red-500" key={index}>
-                  {text}
-                </span>
-              );
-            }
+  useEffect(() => {
+    if (isFinish) {
+      const wordArray = word.trim().split(" ");
+      const randomTextArray = randomText.join("").split(" ");
+      const correctWordArray = wordArray.filter(
+        (w, index) => w === randomTextArray[index]
+      );
 
+      onFinish(wordArray.length, correctWordArray.length);
+    }
+  }, [isFinish, onFinish, randomText, word]);
+
+  return (
+    <div className="text-gray-500 text-justify">
+      {randomText.length &&
+        randomText.map((text, index) => {
+          if (!!word[index] && text === word[index]) {
             return (
-              <span key={index} className="text-lg tracking-wide text-gray-600">
+              <span
+                className="text-xl animation-fadeIn tracking-wide text-primary"
+                key={index}
+              >
                 {text}
               </span>
             );
-          })}
-      </div>
+          } else if (!!word[index] && text !== word[index]) {
+            return (
+              <span
+                className="text-xl animation-fadeIn tracking-wide bg-red-500"
+                key={index}
+              >
+                {text}
+              </span>
+            );
+          } else if (
+            !!word[index] &&
+            text !== word[index] &&
+            word[index] === " "
+          ) {
+            return (
+              <span
+                className="text-xl animation-fadeIn tracking-wide bg-red-500"
+                key={index}
+              >
+                {text}
+              </span>
+            );
+          }
+
+          return (
+            <span
+              key={index}
+              className="text-xl animation-fadeIn tracking-wide text-gray-600"
+            >
+              {text}
+            </span>
+          );
+        })}
     </div>
   );
 };
