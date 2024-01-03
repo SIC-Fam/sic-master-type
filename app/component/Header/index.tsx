@@ -6,8 +6,9 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="py-2 text-left">
+    <div className="py-2 flex items-center justify-between w-full">
       <Image height={180} width={200} src="/logo.png" alt="logo" />
+      <Image height={30} width={30} src="/help.svg" alt="help" />
     </div>
   );
 };
