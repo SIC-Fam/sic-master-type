@@ -7,14 +7,14 @@ interface SettingType {
     isFinish: boolean;
     time: number;
     wordCount: number;
-    correctWord: number;
+    correctCharacter: string[];
     numberOfWordTest: number;
   };
   onStart: () => void;
   onFinish: () => void;
   onChangeTime: (time: number) => void;
   onReset: () => void;
-  setWordResult: (wordCount: number, correctWord: number) => void;
+  setWordResult: (wordCount: number, correctCharacter: string[]) => void;
 }
 
 export const useSetting = create<SettingType>((set) => ({
@@ -23,7 +23,7 @@ export const useSetting = create<SettingType>((set) => ({
     isFinish: false,
     time: INITIAL_TIMER_OPTION,
     wordCount: 0,
-    correctWord: 0,
+    correctCharacter: [],
     numberOfWordTest: 50,
   },
   onStart: () =>
@@ -39,15 +39,15 @@ export const useSetting = create<SettingType>((set) => ({
         isStart: false,
         isFinish: false,
         wordCount: 0,
-        correctWord: 0,
+        correctCharacter: [],
       },
     })),
-  setWordResult: (wordCount: number, correctWord: number) =>
+  setWordResult: (wordCount: number, correctCharacter: string[]) =>
     set((state) => ({
       setting: {
         ...state.setting,
         wordCount,
-        correctWord,
+        correctCharacter,
       },
     })),
 }));

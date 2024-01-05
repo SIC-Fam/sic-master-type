@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./component/Header";
-import Footer from "./component/Footer";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +37,6 @@ export default function RootLayout({
         style={{ fontFamily: "JetBrains Mono" }}
       >
         <div className={`flex-col flex items-center bg-slate-800 p-5 h-screen`}>
-          {/* <Modal isOpen onClose={onCloseModal}></Modal> */}
           <div className="w-full flex flex-1 flex-col justify-between max-w-[960px]">
             <Header />
             <div className="flex-1 grid place-items-center">{children}</div>

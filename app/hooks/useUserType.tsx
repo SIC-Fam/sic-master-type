@@ -27,13 +27,13 @@ export const useUserType = () => {
 
   useEffect(() => {
     if (isFinish) {
-      const wordArray = word.trim().split(" ");
-      const randomTextArray = randomText.join("").split(" ");
+      const wordArray = word.trim().split("");
+
       const correctWordArray = wordArray.filter(
-        (w, index) => w === randomTextArray[index]
+        (w, index) => w === randomText[index]
       );
 
-      setWordResult(wordArray.length, correctWordArray.length);
+      setWordResult(wordArray.length, correctWordArray);
     }
   }, [isFinish, randomText, word, setWordResult]);
 
@@ -46,9 +46,9 @@ export const useUserType = () => {
         setTyped(true);
       }
 
-      if (key === "Backspace" && word.charAt(word.length - 1) === " ") return;
+      if (key === "Backspace" && randomText[word.length - 1] === " ") return;
 
-      if (key === "Backspace" && word.charAt(word.length - 1) !== " ") {
+      if (key === "Backspace") {
         if (word.length > 0) {
           setWord((prev) => prev.slice(0, word.length - 1));
         }

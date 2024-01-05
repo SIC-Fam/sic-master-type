@@ -9,7 +9,6 @@ interface ContentProps {
 
 const Content = ({ randomText, word }: ContentProps) => {
   const [hydrated, setHydrated] = useState(false);
-  console.log("Render");
 
   useEffect(() => {
     setHydrated(true);

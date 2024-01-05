@@ -1,7 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSetting } from "./useSetting";
 
-const useCountDown = () => {
+const useCountDown = ({
+  onFinish: onFinishCountDown,
+  onClear,
+}: {
+  onFinish: () => void;
+  onClear?: () => void;
+}) => {
   const {
     setting: { time, isStart },
     onFinish,
@@ -17,12 +23,13 @@ const useCountDown = () => {
     }${remainingSeconds}`;
   }, [seconds]);
 
-  const onResetTimeDisplay = () => {
+  const resetCountDown = () => {
     setSeconds(time);
   };
 
   useEffect(() => {
     setSeconds(time);
+    onClear?.();
   }, [time]);
 
   useEffect(() => {
@@ -39,11 +46,12 @@ const useCountDown = () => {
   useEffect(() => {
     if (isStart && seconds === 0) {
       onFinish();
+      onFinishCountDown();
       console.log("Countdown reached zero!");
     }
   }, [isStart, seconds]);
 
-  return { timeValue, onResetTimeDisplay };
+  return { timeValue, resetCountDown };
 };
 
 export default useCountDown;
