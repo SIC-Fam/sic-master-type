@@ -14,7 +14,7 @@ const Footer = () => {
           passHref={true}
         >
           <Image
-            src="/fb.svg"
+            src="/icon/fb.svg"
             alt="fb"
             width={30}
             height={30}

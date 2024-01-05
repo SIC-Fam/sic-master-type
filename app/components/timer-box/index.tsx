@@ -10,7 +10,7 @@ const TimerBox = ({ time, onChangeTime }: TimerBoxProps) => {
   return (
     <div className="text-center">
       <div className="bg-white/10 inline-flex items-center justify-center  pl-2 rounded-md">
-        <Image src="/timer.svg" alt="timer" height={30} width={30} />
+        <Image src="/icon/timer.svg" alt="timer" height={30} width={30} />
         <div className="border-l border-l-white/20 h-6 ml-3"></div>
         {TIMER_OPTION.map((option) => (
           <div

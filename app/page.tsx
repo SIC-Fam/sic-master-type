@@ -10,46 +10,46 @@ import { useUserType } from "./hooks/useUserType";
 import { useCallback } from "react";
 import ResultSection from "./components/result";
 import { useResultSection } from "./hooks/useResultSection";
+import Chart from "./components/chart";
+import { useChart } from "./hooks/useChart";
 
 export default function Home() {
-  const { setting, onChangeTime, onReset: onResetSetting } = useSetting();
+  const chart = useChart();
   const resultSection = useResultSection();
-
+  const { setting, onChangeTime, onReset: onResetSetting } = useSetting();
+  const { word, randomText, onResetWord } = useUserType();
   const { timeValue, resetCountDown } = useCountDown({
     onFinish: () => resultSection.onOpen(),
     onClear: () => handleReset(),
   });
 
-  const { word, randomText, onResetWord, setTyped } = useUserType();
-
   const handleReset = useCallback(() => {
     onResetSetting();
     onResetWord();
-    setTyped(false);
-  }, []);
+    resultSection.onClose();
+    chart.onClose();
+    resetCountDown();
+  }, [setting.time]);
 
   return (
-    <div>
-      {setting.isFinish && (
-        <ResultSection
-          isShow={resultSection.open}
-          onReset={handleReset}
-          typedText={word}
-          contentNeedTexted={randomText
-            .slice(0, word.split("").length)
-            .join("")}
-        />
-      )}
-
+    <div className="w-full ">
+      <Chart
+        isOpen={chart.isOpen}
+        onClose={chart.onClose}
+        settingTime={10}
+        onReset={handleReset}
+      />
+      <ResultSection
+        onOpenChartSection={chart.onOpen}
+        isShow={resultSection.open}
+        typedText={word}
+        onReset={handleReset}
+        contentNeedTexted={randomText.slice(0, word.split("").length).join("")}
+      />
       <TimerBox onChangeTime={onChangeTime} time={setting.time} />
       <CountDown timeValue={timeValue} />
       <Content randomText={randomText} word={word} />
-      <Restart
-        onReset={() => {
-          resetCountDown();
-          handleReset();
-        }}
-      />
+      <Restart onReset={handleReset} />
     </div>
   );
 }

@@ -15,9 +15,8 @@ const Content = ({ randomText, word }: ContentProps) => {
   }, []);
 
   return (
-    <div className="text-gray-500 text-justify">
-      {hydrated &&
-        randomText.length &&
+    <div className="text-gray-500 text-justify w-full">
+      {hydrated && randomText.length ? (
         randomText.map((text, index) => {
           if (!!word[index] && text === word[index]) {
             return (
@@ -47,7 +46,10 @@ const Content = ({ randomText, word }: ContentProps) => {
               {text}
             </span>
           );
-        })}
+        })
+      ) : (
+        <div className="h-[200px] animate-pulse bg-slate-700 rounded-md w-full"></div>
+      )}
     </div>
   );
 };

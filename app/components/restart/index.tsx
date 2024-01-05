@@ -23,7 +23,7 @@ const Restart = ({ onReset, disabledTransition }: RestartProps) => {
         >
           <Image
             className="group-hover:-rotate-90 duration-300 "
-            src="/reload.svg"
+            src="/icon/reload.svg"
             width={30}
             height={30}
             alt="hihi"

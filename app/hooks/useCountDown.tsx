@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSetting } from "./useSetting";
+import { useUserType } from "./useUserType";
 
 const useCountDown = ({
   onFinish: onFinishCountDown,
@@ -30,6 +31,7 @@ const useCountDown = ({
   useEffect(() => {
     setSeconds(time);
     onClear?.();
+    console.log("onClear function called!");
   }, [time]);
 
   useEffect(() => {

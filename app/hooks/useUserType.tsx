@@ -25,6 +25,11 @@ export const useUserType = () => {
     [numberOfWordTest]
   );
 
+  const onResetWord = () => {
+    setWord("");
+    setTyped(false);
+  };
+
   useEffect(() => {
     if (isFinish) {
       const wordArray = word.trim().split("");
@@ -64,10 +69,6 @@ export const useUserType = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isFinish, typed, word.length]);
-
-  const onResetWord = () => {
-    setWord("");
-  };
 
   return { word, setWord, typed, setTyped, randomText, onResetWord };
 };

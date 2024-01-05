@@ -39,7 +39,7 @@ export default function RootLayout({
         <div className={`flex-col flex items-center bg-slate-800 p-5 h-screen`}>
           <div className="w-full flex flex-1 flex-col justify-between max-w-[960px]">
             <Header />
-            <div className="flex-1 grid place-items-center">{children}</div>
+            <div className="flex-1 pt-8">{children}</div>
             <Footer />
           </div>
         </div>
