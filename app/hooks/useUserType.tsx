@@ -11,9 +11,10 @@ const isAllowedCode = (code: string): boolean => {
   );
 };
 
-export const useUserType = () => {
+export const useUserType = ({ isFocus = true }) => {
   const [word, setWord] = useState("");
   const [typed, setTyped] = useState(false);
+
   const {
     setting: { isFinish, numberOfWordTest },
     onStart,
@@ -44,7 +45,7 @@ export const useUserType = () => {
 
   useEffect(() => {
     const handleKeyDown = ({ key, code }: KeyboardEvent) => {
-      if (isFinish || !isAllowedCode(code)) return;
+      if (!isFocus || isFinish || !isAllowedCode(code)) return;
 
       if (!typed) {
         onStart();
@@ -68,7 +69,7 @@ export const useUserType = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isFinish, typed, word.length]);
+  }, [isFinish, typed, isFocus, word.length]);
 
   return { word, setWord, typed, setTyped, randomText, onResetWord };
 };

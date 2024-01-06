@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSetting } from "./useSetting";
-import { useUserType } from "./useUserType";
 
 const useCountDown = ({
   onFinish: onFinishCountDown,
   onClear,
+  isCancel = false,
 }: {
   onFinish: () => void;
   onClear?: () => void;
+  isCancel?: boolean;
 }) => {
   const {
     setting: { time, isStart },
@@ -31,19 +32,18 @@ const useCountDown = ({
   useEffect(() => {
     setSeconds(time);
     onClear?.();
-    console.log("onClear function called!");
   }, [time]);
 
   useEffect(() => {
     const timer =
-      isStart && seconds
+      !isCancel && isStart && seconds
         ? setInterval(() => {
             setSeconds((prevSeconds) => prevSeconds - 1);
           }, 1000)
         : undefined;
 
     return () => clearInterval(timer);
-  }, [isStart, seconds]);
+  }, [isStart, isCancel, seconds]);
 
   useEffect(() => {
     if (isStart && seconds === 0) {

@@ -10,7 +10,7 @@ interface RestartProps {
 
 const Restart = ({ onReset, disabledTransition }: RestartProps) => {
   return (
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center">
       <div
         className="flex items-center group cursor-pointer h-14 relative"
         onClick={onReset}

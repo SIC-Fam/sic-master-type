@@ -74,7 +74,7 @@ const ResultSection = ({
         <Header />
         <HeaderResult />
         {/* RESULT */}
-        <div className="flex-1 grid grid-cols-3 gap-5">
+        <div className="flex-1 grid grid-cols-3 gap-5 pb-5">
           {data.map((item) => (
             <div
               key={item.label}

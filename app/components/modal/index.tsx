@@ -1,13 +1,7 @@
 "use client";
 
 import { omit } from "lodash";
-import React, {
-  HTMLAttributes,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 
 interface ModalProps {
   children: ReactNode;

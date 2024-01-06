@@ -4,9 +4,10 @@ import React, { memo } from "react";
 
 interface TimerBoxProps {
   time: number;
+  timeValue: string;
   onChangeTime: (time: number) => void;
 }
-const TimerBox = ({ time, onChangeTime }: TimerBoxProps) => {
+const TimerBox = ({ time, onChangeTime, timeValue }: TimerBoxProps) => {
   return (
     <div className="text-center">
       <div className="bg-white/10 inline-flex items-center justify-center  pl-2 rounded-md">
@@ -23,6 +24,8 @@ const TimerBox = ({ time, onChangeTime }: TimerBoxProps) => {
             {option}
           </div>
         ))}
+        <div className="border-l border-l-white/20 h-6 ml-3"></div>
+        <span className="mx-3 text-primary">{timeValue}</span>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const HeaderResult = () => {
   return (
-    <div className="text-center text-white pb-20">
+    <div className="text-center text-white pb-10">
       <h1 className="text-white/50 text-sm mb-1">
         <span className="text-primary">SIC</span> - Master Type
       </h1>
