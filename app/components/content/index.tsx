@@ -38,7 +38,7 @@ const Content = ({ randomText, word, isFocus, setIsFocus }: ContentProps) => {
 
       <div
         className={`text-gray-500 text-justify w-full mb-10 duration-200 outline-none ${
-          !isFocus ? "blur-sm" : "blur-none"
+          !isFocus ? "blur-sm cursor-pointer" : "blur-none"
         }`}
         tabIndex={0}
         onFocus={() => {
@@ -60,7 +60,7 @@ const Content = ({ randomText, word, isFocus, setIsFocus }: ContentProps) => {
             return <TextContent key={v4()} content={text} type={type} />;
           })
         ) : (
-          <div className="h-[200px] animate-pulse bg-slate-700 rounded-md w-full"></div>
+          <div className="h-[200px] animate-pulse bg-slate-800/20 rounded-md w-full"></div>
         )}
       </div>
     </>

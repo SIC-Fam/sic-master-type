@@ -36,11 +36,16 @@ export default function RootLayout({
         className={inter.className}
         style={{ fontFamily: "JetBrains Mono" }}
       >
-        <div className={`flex-col flex items-center bg-slate-900 p-5 h-screen`}>
-          <div className="w-full flex flex-1 flex-col justify-between max-w-[1024px]">
-            <Header />
-            <div className="flex-1 pt-8">{children}</div>
-            <Footer />
+        <div id="modal"></div>
+        <div id="root">
+          <div
+            className={`flex-col flex items-center bg-slate-900 p-5 h-screen relative`}
+          >
+            <div className="w-full flex flex-1 flex-col justify-between max-w-[1024px]">
+              <Header />
+              <div className="flex-1 pt-8">{children}</div>
+              <Footer />
+            </div>
           </div>
         </div>
       </body>

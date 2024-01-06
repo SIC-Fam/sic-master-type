@@ -7,20 +7,19 @@ import { useSetting } from "./hooks/useSetting";
 import useCountDown from "./hooks/useCountDown";
 import { useUserType } from "./hooks/useUserType";
 import { useCallback, useState } from "react";
-import ResultSection from "./components/result";
-import { useResultSection } from "./hooks/useResultSection";
-import Chart from "./components/chart";
+import ResultSection from "./components/modal/result";
+import Chart from "./components/modal/chart";
 import { useChart } from "./hooks/useChart";
 
 export default function Home() {
   const chart = useChart();
-  const resultSection = useResultSection();
+  const [isOpenResultSection, setIsOpenResultSection] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
 
   const { setting, onChangeTime, onReset: onResetSetting } = useSetting();
   const { word, randomText, onResetWord } = useUserType({ isFocus });
   const { timeValue, resetCountDown } = useCountDown({
-    onFinish: () => resultSection.onOpen(),
+    onFinish: () => setIsOpenResultSection(true),
     onClear: () => handleReset(),
     isCancel: !isFocus,
   });
@@ -28,7 +27,7 @@ export default function Home() {
   const handleReset = useCallback(() => {
     onResetSetting();
     onResetWord();
-    resultSection.onClose();
+    setIsOpenResultSection(false);
     chart.onClose();
     resetCountDown();
   }, [setting.time]);
@@ -43,7 +42,7 @@ export default function Home() {
       />
       <ResultSection
         onOpenChartSection={chart.onOpen}
-        isShow={resultSection.open}
+        isShow={isOpenResultSection}
         typedText={word}
         onReset={handleReset}
         contentNeedTexted={randomText.slice(0, word.split("").length).join("")}

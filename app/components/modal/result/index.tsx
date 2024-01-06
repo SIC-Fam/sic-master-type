@@ -1,11 +1,8 @@
-import Modal from "@/app/components/modal";
 import Restart from "@/app/components/restart";
-import React, { useState } from "react";
-import Chart from "../chart";
+import React from "react";
 import { useSetting } from "@/app/hooks/useSetting";
-import { useResultSection } from "@/app/hooks/useResultSection";
 import HeaderResult from "./header";
-import Header from "../header";
+import Header from "../../header";
 import Image from "next/image";
 const SECOND_PER_MINUTE = 60;
 
@@ -24,8 +21,6 @@ const ResultSection = ({
   contentNeedTexted,
   onOpenChartSection,
 }: ResultSectionProps) => {
-  const resultSection = useResultSection();
-
   const {
     setting: { time: settingTime, correctCharacter },
   } = useSetting();
@@ -67,9 +62,13 @@ const ResultSection = ({
     },
   ];
 
+  if (!isShow) {
+    return undefined;
+  }
+
   return (
-    <Modal isOpen={isShow} onClose={resultSection.onClose}>
-      <div className="py-10 w-full px-5 h-full">
+    <div className="fixed inset-0 bg-slate-800 z-[1] grid place-items-center">
+      <div className="max-w-[660px] py-10 px-5 h-full">
         {/* HEADER */}
         <Header />
         <HeaderResult />
@@ -99,7 +98,7 @@ const ResultSection = ({
           </div>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 

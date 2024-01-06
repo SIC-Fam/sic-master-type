@@ -1,6 +1,6 @@
 import { TIMER_OPTION } from "@/app/constants";
 import React, { memo } from "react";
-import Modal from "../modal";
+import Modal from "..";
 
 interface ChartProp {
   settingTime: number;
@@ -10,13 +10,10 @@ interface ChartProp {
 }
 
 const Chart = ({ settingTime, isOpen, onClose, onReset }: ChartProp) => {
+  console.log(isOpen);
   return (
-    <Modal
-      containerProps={{ className: "bg-black/60 z-[102]" }}
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      <div className="w-[500px] bg-slate-800 p-5 rounded-md">
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <>
         <div className="bg-primary w-full p-2 text-center text-white">
           Charts
         </div>
@@ -73,21 +70,7 @@ const Chart = ({ settingTime, isOpen, onClose, onReset }: ChartProp) => {
             ))}
           </tbody>
         </table>
-        <div className="flex gap-5 mt-5 pt-4 border-t border-t-gray-700">
-          <button
-            onClick={onReset}
-            className="text-primary p-2 rounded-sm duration-200 hover:bg-white/10 flex-1"
-          >
-            Restart
-          </button>
-          <button
-            onClick={onClose}
-            className="text-white/60 rounded-sm duration-200 hover:bg-white/10 p-2 flex-1"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
+      </>
     </Modal>
   );
 };
